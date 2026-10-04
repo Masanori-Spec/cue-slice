@@ -319,6 +319,51 @@ try {
     },
   );
   await scenario(
+    "Reviewed print view retains boundaries without overflow and emits A4 PDF",
+    async () => {
+      await page.setViewportSize({ width: 1440, height: 1100 });
+      await page.locator("#language").selectOption("en");
+      await page.locator("#results details").evaluate((el) => {
+        el.open = true;
+      });
+      await page.emulateMedia({ media: "print" });
+      try {
+        assert.equal(await page.locator("#results").isVisible(), true);
+        assert.equal(await page.locator(".result-card").count(), 2);
+        for (const card of await page.locator(".result-card").all()) {
+          assert.equal(await card.isVisible(), true);
+          assert.match(await card.textContent(), /720.*0\.750/s);
+          assert.match(await card.textContent(), /480 → 1200/);
+        }
+        assert.equal(await page.locator("#ledger").isVisible(), true);
+        assert.ok(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth + 1,
+          ),
+        );
+        await page.screenshot({
+          path: dir + "/print-en-reviewed.png",
+          fullPage: true,
+        });
+        await page.pdf({
+          path: dir + "/print-en-reviewed.pdf",
+          format: "A4",
+          printBackground: true,
+          preferCSSPageSize: true,
+          margin: { top: "14mm", right: "14mm", bottom: "14mm", left: "14mm" },
+        });
+        const pdf = await readFile(dir + "/print-en-reviewed.pdf");
+        assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
+        assert.ok(pdf.length > 1000);
+      } finally {
+        await page.emulateMedia({ media: "screen" });
+        await page.locator("#results details").evaluate((el) => {
+          el.open = false;
+        });
+      }
+    },
+  );
+  await scenario(
     "Reset clears files, recipes, evidence and export state",
     async () => {
       await page.locator("#reset").click();
@@ -344,7 +389,7 @@ try {
     JSON.stringify(
       {
         status:
-          results.length === 16 && results.every((x) => x.status === "passed")
+          results.length === 17 && results.every((x) => x.status === "passed")
             ? "passed"
             : "failed-or-blocked",
         sandbox: true,

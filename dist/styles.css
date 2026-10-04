@@ -739,3 +739,119 @@ footer small {
     grid-column: 3;
   }
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+  :root {
+    color-scheme: light;
+  }
+  body {
+    background: white;
+    color: #172b2a;
+    font-size: 11px;
+  }
+  .top,
+  main,
+  footer {
+    width: 100%;
+    max-width: 182mm;
+    margin: 0 auto;
+  }
+  .top {
+    padding: 0 0 12px;
+  }
+  .hero,
+  .profile,
+  .locale,
+  .skip,
+  .file-button,
+  #reset,
+  #rows,
+  .policy-note,
+  .build-bar,
+  #results .primary,
+  #workspace > .section-head:has(.actions),
+  #workspace > .section-head:has(.actions) + .helper {
+    display: none !important;
+  }
+  #workspace {
+    padding-top: 0;
+  }
+  .section-head {
+    margin: 16px 0 10px;
+  }
+  .eyebrow {
+    font-size: 8px;
+    margin-bottom: 6px;
+  }
+  h2 {
+    font-size: 19px;
+  }
+  .source-box {
+    padding: 12px;
+    break-inside: avoid;
+  }
+  .source-box > p {
+    display: none;
+  }
+  .source-summary {
+    margin-top: 8px;
+  }
+  .result-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  .result-card {
+    break-inside: avoid;
+    padding: 14px;
+  }
+  .result-card h3 {
+    font-size: 14px;
+  }
+  .metric {
+    font-size: 24px;
+  }
+  .ledger-wrap {
+    max-height: none;
+    overflow: visible;
+  }
+  table {
+    min-width: 0;
+    width: 100%;
+    table-layout: fixed;
+    font-size: 8px;
+  }
+  th,
+  td {
+    overflow-wrap: anywhere;
+    padding: 6px;
+  }
+  th {
+    position: static;
+    background: #f1f4ed;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr {
+    break-inside: avoid;
+  }
+  .limits {
+    display: block;
+    margin-top: 22px;
+    padding: 20px 0;
+  }
+  .limits h2 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .limits p:not(.eyebrow) {
+    font-size: 10px;
+  }
+  footer {
+    padding: 12px 0;
+    font-size: 10px;
+  }
+}

@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOUNDFONT_SHA256 = 'c5378b62028c920cb11e4803327983fee2f2cdff5dc89c708e39da417e51c854'
 RATE = 44100
 BLOCK = 64
+POST_PLAYER_SECONDS = 3
 
 
 def bind(lib, name, result, *arguments):
@@ -138,8 +139,19 @@ class FluidSynth:
             status = self.fluid_player_get_status(player)
             assert status == 3, f'player did not finish normally: {status}'
             assert not callback_errors, callback_errors
+            # Player completion is not synth silence. In FluidSynth2.2.5 the
+            # player can finish at EOT while the final release envelope is active.
+            # Render a fixed, bounded tail without resets, extra MIDI messages,
+            # forced all-sounds-off or changing the MIDI's declared duration.
+            frames_at_player_done = rendered_frames
+            for _ in range(math.ceil(POST_PLAYER_SECONDS * RATE / BLOCK)):
+                self.okay(self.fluid_file_renderer_process_block(renderer), 'render release tail')
+                rendered_frames += BLOCK
+            assert not callback_errors, callback_errors
             return {'notes': notes, 'totalTicks': total_ticks, 'playerStatus': 'done',
-                    'renderedFrames': rendered_frames}
+                    'renderedFrames': rendered_frames,
+                    'framesAtPlayerDone': frames_at_player_done,
+                    'postPlayerFrames': rendered_frames - frames_at_player_done}
         finally:
             if player:
                 self.fluid_player_stop(player)
@@ -260,12 +272,46 @@ def run(args):
             assert metrics['peak16bit'] <= 2, metrics
         cases.append({'case': name, 'status': 'passed', 'midiSha256': hashlib.sha256(midi.read_bytes()).hexdigest(),
                       'native': result, 'audio': metrics})
+    # Negative control: some native players release voices automatically at EOF.
+    # Audio silence therefore cannot establish that the SMF contained closure.
+    # Remove the required final off while retaining absolute ticks, and verify
+    # the real native callback stream exposes the missing message.
+    import mido
+    corrupt = mido.MidiFile(str(specs[0][1]))
+    removed = 0
+    for track in corrupt.tracks:
+        rewritten = mido.MidiTrack()
+        pending_delta = 0
+        for message in track:
+            if message.type == 'note_off' and message.channel == 0 and message.note == 67:
+                removed += 1
+                pending_delta += message.time
+            else:
+                rewritten.append(message.copy(time=message.time + pending_delta))
+                pending_delta = 0
+        track[:] = rewritten
+    assert removed == 1, ('negative control requires one final pitch67 off', removed)
+    negative_midi = args.out / 'negative-missing-final-off.mid'
+    corrupt.save(str(negative_midi))
+    negative_native = synth.render(negative_midi, args.soundfont, args.out / 'negative-missing-final-off.wav')
+    negative_events = [(event['kind'], event['channel'], event['note'], event['velocity'])
+                       for event in negative_native['notes']]
+    required_events = [event[:4] for event in specs[0][4]]
+    assert negative_events != required_events, 'Native callback oracle failed to detect missing closure'
+    assert ('note_off', 0, 67, 0) not in negative_events, negative_events
+    negative_controls = [{'case': 'missing-final-note-off', 'status': 'detected',
+                          'criterion': 'literal native callback event mismatch, not tail silence',
+                          'expectedNoteEvents': len(required_events),
+                          'observedNoteEvents': len(negative_events),
+                          'midiSha256': hashlib.sha256(negative_midi.read_bytes()).hexdigest(),
+                          'native': negative_native}]
     return {'status': 'passed', 'consumer': 'native FluidSynth MIDI player + file renderer',
             'library': synth.name, 'fluidSynthVersion': synth.version,
             'platform': platform.platform(), 'systemPackages': dpkg_versions(),
             'soundfont': {'filename': args.soundfont.name, 'sha256': sf_hash,
                           'testOnly': True, 'redistributed': False},
-            'sampleRate': RATE, 'blockSize': BLOCK, 'casesPassed': len(cases), 'cases': cases,
+            'sampleRate': RATE, 'blockSize': BLOCK, 'postPlayerTailSeconds': POST_PLAYER_SECONDS, 'casesPassed': len(cases), 'cases': cases,
+            'negativeControls': negative_controls,
             'inputMode': 'provided-zip-artifact' if args.browser_bundle else 'oracle-cli-exports',
             'sourceZip': bundle_evidence}
 

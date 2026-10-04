@@ -29,12 +29,15 @@ that a reviewer can reproduce them; they are not trusted inputs to the app.
 
 - GitHub Actions matrix: Node22 and24 engine + Mido
 - Official Ubuntu22 package native consumer, providing package-provenance evidence
-- Sandboxed Chromium browser suite:16 scenarios, including actual downloaded ZIP
+- Sandboxed Chromium browser suite:17 scenarios, including actual downloaded ZIP
   verified independently by Mido, JA/EN desktop/mobile, keyboard use, source-bound
   recipe replay,64/65clip boundaries, failed/stale/delayed imports and Reset
 - Direct actual browser ZIP → native FluidSynth:2 artifact clips, source ZIP/per-MIDI
   hashes, native callback timing and audio checks. The equivalent CLI-ZIP control
   passed locally; it is not actual browser artifact evidence
+- Reviewed print-emulation screenshot and A4 PDF, with visible720-tick/0.75-second
+  boundaries and no horizontal overflow asserted; visual PDF page review remains
+  required after execution
 - Screenshots and visual review of rendered UI
 - Verification of exact published commit, remote tree, deployment URL and final CI
 

@@ -134,7 +134,7 @@ PYTHON=.venv/bin/python npm run test:browser
 See [verification status](docs/VERIFICATION.md), [native consumer notes](docs/NATIVE_CONSUMER.md),
 [workflow comparison](docs/RESEARCH.md), and [security](SECURITY.md).
 
-The source includes sandbox-on Chromium CI for ubuntu-22.04, desktop/mobile JA/EN,
+The source includes sandbox-on Chromium CI for ubuntu-22.04, desktop/mobile JA/EN, reviewed print screenshot/A4 PDF,
 keyboard use, real downloads, independent Mido consumption, direct downloaded-ZIP
 consumption by native FluidSynth, repeated exports,
 source mismatches, failed imports and interrupted imports. Authored tests are not

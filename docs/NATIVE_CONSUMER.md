@@ -176,7 +176,6 @@ arbitrary SoundFont comparison, or support for formats/events rejected by the ap
 - [FluidSynth sample-clock and reset settings](https://www.fluidsynth.org/api/settings_player.html)
 - [Ubuntu Jammy timgm6mb-soundfont package](https://packages.ubuntu.com/jammy/timgm6mb-soundfont)
 
-
 ## Direct browser-download → native gate
 
 After the browser suite has saved its actual `test-results/browser/downloaded.zip`,
@@ -187,7 +186,7 @@ python tests/native-consumer.py --browser-bundle test-results/browser/downloaded
 ```
 
 The browser job installs `libfluidsynth3` and `timgm6mb-soundfont` from the official
-Ubuntu repositories. This step does not alter Chromium's sandbox or the16 browser
+Ubuntu repositories. This step does not alter Chromium's sandbox or the17 browser
 scenarios. The separate regular native job still covers its original5 cases.
 
 The direct artifact gate accepts only the bounded canonical two-clip handoff: at
@@ -209,3 +208,34 @@ for this test route and is not evidence of browser execution.
 At authoring time, the new route passed a local equivalent canonical CLI ZIP
 control. Actual browser-ZIP → native execution and its official-package CI run
 remain pending; the local control must not be presented as that completed gate.
+
+## Player completion and release-envelope completion
+
+The initial Ubuntu2.2.5 CI run stopped the renderer at player status `DONE`; its
+retrigger WAV was only0.753197 seconds for a0.75-second MIDI file, so the last
+window still contained an active release tail. Local2.4.4 player completion had
+already included additional rendering time. These are different lifecycle signals,
+not evidence that the exported MIDI duration should change.
+
+The consumer now renders a fixed3-second post-player tail using additional
+`fluid_file_renderer_process_block` calls. It keeps `player.reset-synth=0`, sends
+no extra note/controller events, and does not invoke all-sounds-off or erase audio.
+The original note callback/timing checks and final RMS≤2 silence threshold remain
+unchanged. Reports distinguish frames at player completion from post-player frames.
+The tail is bounded, and the existing15-second active-player safety limit remains.
+
+This follows the separate player/synth and renderer lifecycles documented by the
+[official renderer API](https://www.fluidsynth.org/api/group__file__renderer.html)
+and [player reset setting](https://www.fluidsynth.org/api/settings_player.html).
+The actual first-run browser ZIP passes this revised consumer locally on2.4.4;
+confirmation on the official Ubuntu2.2.5 CI runtime remains pending the rerun.
+
+
+Some FluidSynth versions also release pending voices automatically at EOF.
+Therefore a quiet tail alone is not proof that the MIDI contained a final note-off.
+The exact native callback event/timing assertion remains mandatory. A separate
+negative control removes the final pitch67 note-off while preserving all absolute
+ticks, feeds that malformed handoff to the real native player and requires the
+observed note-event stream to differ from the literal expected stream. Its result
+is recorded as a detected negative control, separately from the5 (or2 artifact)
+positive cases. It does not relax the positive audio, timing or event assertions.
