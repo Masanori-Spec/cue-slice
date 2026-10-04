@@ -1,0 +1,87 @@
+name: Verify CueSlice
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  engine:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: npm ci --ignore-scripts
+      - run: python -m pip install -r tests/requirements.txt
+      - run: npm run check
+      - run: python tests/oracle.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cueslice-engine-node${{ matrix.node }}
+          path: test-results/oracle/
+  native-consumer:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libfluidsynth3 timgm6mb-soundfont
+      - run: python -m pip install -r tests/requirements.txt
+      - run: python tests/oracle.py && python tests/native-consumer.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cueslice-native-consumer
+          path: test-results/
+  browser:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libfluidsynth3 timgm6mb-soundfont
+      - run: npm ci --ignore-scripts
+      - run: python -m pip install -r tests/requirements.txt
+      - run: python tests/oracle.py --fixtures-only
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: Sandbox-on Chrome with deployed subpath
+        env:
+          BASE_PATH: /cue-slice/
+          BASE_URL: http://127.0.0.1:4173/cue-slice/
+        run: |
+          npm run serve > /tmp/cueslice-server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4173/cue-slice/ > /dev/null && break; sleep 1; done
+          npm run test:browser
+      - name: Native FluidSynth consumes the actual downloaded browser ZIP
+        run: python tests/native-consumer.py --browser-bundle test-results/browser/downloaded.zip --out test-results/browser/native-download
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cueslice-browser-evidence
+          path: test-results/browser/
