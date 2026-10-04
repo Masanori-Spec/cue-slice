@@ -1,0 +1,23 @@
+{
+  "name": "cue-slice",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Reviewable MIDI excerpt batches with state and boundary receipts",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm run build && npm test && node scripts/check.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test:oracle": "python3 tests/oracle.py",
+    "test:native": "python3 tests/native-consumer.py",
+    "test:browser": "node tests/browser/browser-test.mjs",
+    "package": "python3 scripts/package.py"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.0"
+  }
+}

@@ -1,0 +1,107 @@
+
+> cue-slice@0.1.0 check
+> npm run build && npm test && node scripts/check.mjs
+
+
+> cue-slice@0.1.0 build
+> node scripts/build.mjs
+
+Built local-first static app with relative paths.
+
+> cue-slice@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ strict rejection: truncated@0 (1.692497ms)
+✔ strict rejection: truncated@1 (0.108874ms)
+✔ strict rejection: truncated@2 (0.103286ms)
+✔ strict rejection: truncated@3 (0.133592ms)
+✔ strict rejection: truncated@4 (0.244589ms)
+✔ strict rejection: truncated@5 (0.084708ms)
+✔ strict rejection: truncated@6 (0.078279ms)
+✔ strict rejection: truncated@7 (0.063025ms)
+✔ strict rejection: truncated@8 (0.109285ms)
+✔ strict rejection: truncated@9 (0.183728ms)
+✔ strict rejection: truncated@10 (0.095895ms)
+✔ strict rejection: truncated@11 (0.066711ms)
+✔ strict rejection: truncated@12 (0.045459ms)
+✔ strict rejection: truncated@13 (0.040981ms)
+✔ strict rejection: truncated@14 (0.042344ms)
+✔ strict rejection: truncated@15 (0.040641ms)
+✔ strict rejection: truncated@16 (0.036866ms)
+✔ strict rejection: truncated@17 (0.038188ms)
+✔ strict rejection: truncated@18 (0.142886ms)
+✔ strict rejection: truncated@19 (0.052509ms)
+✔ strict rejection: truncated@20 (0.090917ms)
+✔ strict rejection: truncated@21 (0.049896ms)
+✔ strict rejection: truncated@22 (0.086791ms)
+✔ strict rejection: truncated@23 (0.052129ms)
+✔ strict rejection: truncated@24 (0.085639ms)
+✔ strict rejection: truncated@25 (0.110527ms)
+✔ strict rejection: truncated@26 (0.084648ms)
+✔ strict rejection: truncated@27 (0.045228ms)
+✔ strict rejection: truncated@28 (0.042855ms)
+✔ strict rejection: truncated@29 (0.066871ms)
+✔ strict rejection: truncated@30 (0.046059ms)
+✔ strict rejection: truncated@31 (0.065589ms)
+✔ strict rejection: truncated@32 (0.055483ms)
+✔ strict rejection: truncated@33 (0.082605ms)
+✔ strict rejection: trailing bytes (0.20471ms)
+✔ strict rejection: data status byte (0.11932ms)
+✔ strict rejection: no EOT (0.083476ms)
+✔ strict rejection: after EOT (0.11938ms)
+✔ strict rejection: bad EOT length (0.113351ms)
+✔ strict rejection: 5-byte delta (0.126962ms)
+✔ strict rejection: SMPTE (0.134994ms)
+✔ strict rejection: type2 (0.102935ms)
+✔ strict rejection: sysex (0.13925ms)
+✔ strict rejection: pitch bend (0.117938ms)
+✔ strict rejection: bank select (0.087332ms)
+✔ strict rejection: meta sequencer (0.111318ms)
+✔ strict rejection: noteoff without onset (0.157258ms)
+✔ strict rejection: overlapping key (0.128855ms)
+✔ strict rejection: overlapping sustained released (0.118979ms)
+✔ strict rejection: too many bytes (0.087693ms)
+✔ strict rejection: tick overflow (0.195105ms)
+✔ strict rejection: huge meta (0.975363ms)
+✔ strict rejection: event cap (96.107051ms)
+✔ strict rejection: beyond end (0.678225ms)
+✔ strict rejection: empty range (0.124288ms)
+✔ strict rejection: negative (0.080632ms)
+✔ strict rejection: fraction (0.054863ms)
+✔ strict rejection: NaN (0.141313ms)
+✔ strict rejection: traversal (0.060271ms)
+✔ strict rejection: case name empty (0.041603ms)
+✔ strict rejection: policy (0.042544ms)
+✔ strict rejection: casefold duplicate (0.090647ms)
+✔ strict rejection: clip cap (0.073922ms)
+✔ strict rejection: short declared track (0.207143ms)
+✔ source-end held keys close at exact EOT without extension (1.368617ms)
+✔ source-end note-off is replaced by explicit half-open synthetic closure (21.218341ms)
+✔ exported recipe source fingerprint mismatch rejects (1.535509ms)
+✔ large metadata stays intact in MIDI without multiplying into CSV detail (135.085019ms)
+✔ copied note-off release velocity survives while synthetic and velocity-zero offs use zero (0.731996ms)
+✔ canonical excerpt duration, sustained retrigger order and ending (4.213103ms)
+✔ onsets omits sustained entry but retains silence and new notes (0.492443ms)
+✔ marker recipe resolves exactly and duplicate names rejected (1.266464ms)
+✔ 64 clips allowed, 65 rejected (22.104089ms)
+✔ bundle deterministic, source-bound recipe, and no source leak (4.119612ms)
+✔ all supported controllers persist into entry; channels preserved (0.755952ms)
+✔ metadata ledger stays bounded while MIDI retains full text (2.345993ms)
+✔ every unlisted controller rejects, including RPN, NRPN, MPE and pedals (2.316278ms)
+✔ copied note-off release velocity is preserved; synthetic end-off uses zero (0.409279ms)
+✔ type1 rejects multi-track channel ownership (0.35728ms)
+✔ same-tick globals in different tracks reject ambiguity (0.22532ms)
+✔ valid running-status notes parse and normalize velocity-zero (0.477652ms)
+✔ restoration ledger traces source ticks, defaults remain source-less (0.300523ms)
+✔ Windows reserved device basenames reject regardless of case or MIDI extension (5.20978ms)
+✔ dense sustained-entry batch cannot exceed the declared event budget (52.390925ms)
+✔ 64 silent clips across all16channels stay within the conservative budget (83.828187ms)
+ℹ tests 85
+ℹ suites 0
+ℹ pass 85
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 380.808608
+Syntax, exact dist-source parity, local assets and CSP checks passed.

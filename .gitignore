@@ -1,0 +1,6 @@
+node_modules/
+.venv/
+artifacts/
+__pycache__/
+.DS_Store
+test-results/

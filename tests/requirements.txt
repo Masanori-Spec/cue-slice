@@ -1,0 +1,3 @@
+# Independent test reader/writer. No Python dependencies in the app runtime.
+mido==1.3.3
+packaging==25.0

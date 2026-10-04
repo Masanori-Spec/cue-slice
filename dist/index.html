@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="CueSlice: reviewable MIDI excerpt batches with boundary receipts."
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>CueSlice · MIDI excerpt handoff</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#workspace" data-i="skip">編集に移動</a>
+    <header class="top">
+      <a class="brand" href="./"
+        ><span class="brand-icon" aria-hidden="true">◧</span> CueSlice
+        <span class="tag">MIDI HANDOFF</span></a
+      >
+      <div class="locale">
+        <label for="language" data-i="language">言語</label
+        ><select id="language">
+          <option value="ja">日本語</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow" data-i="eyebrow">
+            THE PART YOU NEED. THE CONTEXT IT NEEDS.
+          </p>
+          <h1 data-i="headline">切り出した音に、<br />つながりを残す。</h1>
+          <p class="intro" data-i="intro">
+            ひとつの MIDI
+            から、渡せる練習クリップをまとめて。開始時の状態と終わり方を、確認できる記録にします。
+          </p>
+          <div class="hero-actions">
+            <button id="demo" class="primary" data-i="demo">
+              サンプルで試す <span aria-hidden="true">↗</span></button
+            ><span class="privacy" data-i="privacy"
+              >ローカル処理 · アップロードなし</span
+            >
+          </div>
+        </div>
+        <div class="score-card" aria-hidden="true">
+          <div class="score-label">
+            <span>EXCERPT 01</span><span>480 → 1200</span>
+          </div>
+          <div class="piano-roll">
+            <i class="note a"></i><i class="note b"></i><i class="note c"></i
+            ><i class="note d"></i>
+            <div class="cut left"></div>
+            <div class="cut right"></div>
+            <span class="tick start">IN</span><span class="tick end">OUT</span>
+          </div>
+          <div class="score-foot">
+            <span>720 TICKS</span><span class="dot">●</span
+            ><span>STATE + BOUNDARY RECEIPT</span>
+          </div>
+        </div>
+      </section>
+      <section class="profile">
+        <strong data-i="profileTitle">扱える MIDI を明確に</strong
+        ><span data-i="profileText"
+          >SMF 0 / 1 · PPQ · ノート · Program · CC1 / 7 / 10 / 11 / 64 · テンポ
+          / 拍子</span
+        ><a href="#limits" data-i="profileLink">対応範囲を見る ↓</a>
+      </section>
+      <section id="workspace" tabindex="-1">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">01 / SOURCE</p>
+            <h2 data-i="sourceTitle">元の演奏</h2>
+          </div>
+          <button id="reset" class="quiet" data-i="reset">リセット</button>
+        </div>
+        <div class="source-box">
+          <div>
+            <label class="file-button" for="midi-file" data-i="openMidi"
+              >MIDI を選ぶ</label
+            ><input
+              id="midi-file"
+              type="file"
+              accept=".mid,.midi,audio/midi"
+            /><span id="source-name" data-i="noSource"
+              >まだファイルがありません</span
+            >
+          </div>
+          <p data-i="sourceHint">
+            最大 4 MB · 100,000 イベント · 64
+            トラック。ファイルは端末内で処理されます。
+          </p>
+          <div id="source-summary" class="source-summary"></div>
+        </div>
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">02 / RECIPE</p>
+            <h2 data-i="recipeTitle">切り出しレシピ</h2>
+          </div>
+          <div class="actions">
+            <label
+              class="file-button secondary"
+              for="recipe-file"
+              data-i="importRecipe"
+              >レシピを読み込む</label
+            ><input
+              id="recipe-file"
+              type="file"
+              accept=".json,application/json"
+            /><button id="add" class="secondary" disabled data-i="add">
+              ＋ クリップ
+            </button>
+          </div>
+        </div>
+        <p class="helper" data-i="recipeHint">
+          開始 tick を含み、終了 tick は含みません。マーカーは整数 tick
+          に変換されます。最大 64 クリップ。
+        </p>
+        <div id="rows" class="rows">
+          <p class="empty" data-i="empty">
+            MIDI を読み込むか、サンプルを試してください。
+          </p>
+        </div>
+        <div class="policy-note">
+          <span class="info" aria-hidden="true">i</span>
+          <p data-i="policyNote">
+            「鳴っている音を再発音」は、開始前から鳴る音のアタックをやり直します。元の波形やエフェクトの状態は再現しません。「新しい発音のみ」は開始前の音を省きます。
+          </p>
+        </div>
+        <div class="build-bar">
+          <button id="review" class="primary" disabled data-i="review">
+            境界を確認
+          </button>
+          <p
+            id="status"
+            role="status"
+            aria-live="polite"
+            data-i="initialStatus"
+          >
+            まずは元の MIDI を選んでください。
+          </p>
+        </div>
+        <p id="error" role="alert" hidden></p>
+        <section id="results" hidden>
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">03 / HANDOFF</p>
+              <h2 data-i="resultsTitle">渡す前に、境界を確認</h2>
+            </div>
+            <button id="download" class="primary" disabled data-i="download">
+              ZIP をダウンロード ↓
+            </button>
+          </div>
+          <div id="result-cards" class="result-cards"></div>
+          <p class="helper" data-i="resultHint">
+            ZIP: MIDI クリップ / 再利用レシピ / 全イベント境界記録 CSV /
+            受け取りガイド。元の MIDI は含みません。
+          </p>
+          <details>
+            <summary data-i="ledgerTitle">境界記録のプレビュー</summary>
+            <p class="helper" data-i="ledgerHint">
+              合成・省略イベントの先頭 100 件を表示。全記録は ZIP に入ります。
+            </p>
+            <div class="ledger-wrap" tabindex="0">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i="clip">クリップ</th>
+                    <th>tick</th>
+                    <th>ch</th>
+                    <th data-i="event">イベント</th>
+                    <th data-i="decision">判断</th>
+                  </tr>
+                </thead>
+                <tbody id="ledger"></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+      </section>
+      <section id="limits" class="limits">
+        <div>
+          <p class="eyebrow">HONEST BOUNDARIES</p>
+          <h2 data-i="limitsTitle">
+            音を渡すための道具。<br />音源の再現ではありません。
+          </h2>
+        </div>
+        <div>
+          <p data-i="limitsText">
+            SMF 0/1 の PPQ 時間のみ。SysEx、ピッチベンド、プレッシャー、未対応
+            CC（Bank、RPN/NRPN、MPE、ソステヌート、ポルタメントを含む）、同一チャンネル・音高の重複発音、チャンネルを複数トラックで共有する
+            MIDI は拒否します。
+          </p>
+          <p data-i="endNote">
+            終了時に鍵盤とサステインを解放します。MIDI
+            の長さは正確でも、音源のリリース余韻はその後に続く場合があります。音声再生・録音・音楽構造の自動推定は行いません。
+          </p>
+          <p data-i="textNote">
+            範囲内のテキスト・マーカーは保存します。開始以前のテキストはコピーしません。必要な著作者表記は別途添えてください。使用する
+            MIDI の権利をご確認ください。
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span>CueSlice <small>v0.1</small></span
+      ><span data-i="footer">小さなクリップに、明確な引き継ぎ。</span>
+    </footer>
+    <script type="module" src="./app.mjs"></script>
+  </body>
+</html>
