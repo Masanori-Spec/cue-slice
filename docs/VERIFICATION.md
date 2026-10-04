@@ -1,62 +1,74 @@
 # Verification status
 
-Build handoff snapshot: **2026-10-04**. This file describes local execution before
-publication. It must not be interpreted as a successful GitHub Actions run.
+Verified on **2026-10-04** against application commit
+[`86017ea8b9f5bd22b5df23bbe17221aa88f5edc4`](https://github.com/Masanori-Spec/cue-slice/commit/86017ea8b9f5bd22b5df23bbe17221aa88f5edc4).
+All four jobs passed in [GitHub Actions run 37199838010](https://github.com/Masanori-Spec/cue-slice/actions/runs/37199838010).
+The evidence files below were copied from that run's downloaded artifacts and their
+archive SHA-256 values checked against GitHub's artifact digests. These are
+reproducible snapshots, not trusted inputs to the application.
 
-## Passed locally
+## Passed in CI
 
-- `npm run check`: **85 tests passed**, zero failures/skips; build, module syntax,
-  exact dist/source parity and local-asset/CSP checks passed
-- Independent Mido 1.3.3 oracle: **11 literal export cases passed**. Each checks the
-  ordered full MIDI stream, exact ticks/seconds, ZIP integrity and recipe replay
-- Native FluidSynth 2.4.4 MIDI player/file renderer: **5 cases passed** with pinned
-  TimGM6mb.sf2, including note timing, audible/silent windows and quiet tails
-- Node v24.19.0, Python 3.12.14
-- Canonical interval480→1200 at480PPQ/500000µs per quarter:720ticks,0.75seconds
-- Copied original note-off release velocities preserved; synthetic offs use zero
-- `npm ci --ignore-scripts` completed against committed package-lock.json
-- Review hardening: Windows device basenames reject case-insensitively; the dense
-  16-channel sustained-entry fixture proves the6259-event synthetic bound, rejects
-  an over-budget63-clip batch, and still accepts64 silent clips across16 channels
+- Node **22 and 24**: `npm ci --ignore-scripts`, build, **85 tests** on each version,
+  module syntax, dist/source parity and local-asset/CSP checks
+- Independent **Mido 1.3.3**: **11 literal cases** per engine job, full ordered event
+  streams, release velocities, exact ticks/seconds, ZIP integrity and recipe replay
+- Official Ubuntu 22.04 **FluidSynth 2.2.5** native player/file renderer: **5 cases**,
+  exact note order and velocity, 15 ms timing tolerance, audible/silent windows,
+  declared MIDI duration and bounded release-tail checks
+- Chromium with **`chromiumSandbox: true`**: **17 scenarios**, Japanese/English,
+  desktop/390 px mobile, keyboard, 64/65-clip boundary, failed/stale/delayed imports,
+  Reset, repeated byte-identical exports, source-bound replay and actual downloads
+- Actual browser-downloaded ZIP: **2 clips** checked independently by Mido and then
+  consumed byte-for-byte by the official native FluidSynth file player
+- Deliberately missing final note-off: detected by the native callback oracle in
+  both native routes. Tail silence alone is insufficient because the consumer can
+  release voices automatically at EOF
+- Reviewed print capture and **two-page A4 PDF**: both result cards, 720-tick/
+  0.750-second intervals, repeated table headers, full visible ledger and limits
+- Browser reports: no runtime errors or off-origin requests
 
-Full local reports: [unit/check output](evidence/local-check.log),
-[Mido report](evidence/oracle-report.json),
-[native-consumer report](evidence/native-consumer-report.json).
-The reports are snapshots. Tests and independent input generators are included so
-that a reviewer can reproduce them; they are not trusted inputs to the app.
+Canonical source interval is [480,1200), at 480 PPQ and 500000 microseconds per
+quarter: 720 output ticks and 0.75 seconds. No application algorithm changed to
+make the native tail test pass: the harness now renders a fixed three-second tail
+after native player completion, with unchanged event/audio assertions.
 
-## Authored, not yet run
+## Evidence
 
-- GitHub Actions matrix: Node22 and24 engine + Mido
-- Official Ubuntu22 package native consumer, providing package-provenance evidence
-- Sandboxed Chromium browser suite:17 scenarios, including actual downloaded ZIP
-  verified independently by Mido, JA/EN desktop/mobile, keyboard use, source-bound
-  recipe replay,64/65clip boundaries, failed/stale/delayed imports and Reset
-- Direct actual browser ZIP → native FluidSynth:2 artifact clips, source ZIP/per-MIDI
-  hashes, native callback timing and audio checks. The equivalent CLI-ZIP control
-  passed locally; it is not actual browser artifact evidence
-- Reviewed print-emulation screenshot and A4 PDF, with visible720-tick/0.75-second
-  boundaries and no horizontal overflow asserted; visual PDF page review remains
-  required after execution
-- Screenshots and visual review of rendered UI
-- Verification of exact published commit, remote tree, deployment URL and final CI
+- [CI summary and artifact digests](evidence/ci-summary.json)
+- [Browser scenario report](evidence/ci-browser-results.json)
+- [Actual-download Mido report](evidence/ci-download-oracle.json)
+- [Actual-download native report](evidence/ci-browser-native-report.json)
+- [Five-case native report](evidence/ci-native-consumer-report.json)
+- [Eleven-case Mido report](evidence/ci-oracle-report.json)
+- [English desktop](evidence/desktop-en-reviewed.png), [Japanese desktop](evidence/desktop-ja-empty.png)
+- [Japanese mobile](evidence/mobile-ja-reviewed.png), [English mobile](evidence/mobile-en-reviewed.png)
+- [Print screenshot](evidence/print-en-reviewed.png), [A4 PDF](evidence/print-en-reviewed.pdf)
 
-No local browser launch was attempted for this build because sandboxed local browser
-execution is a known unavailable gate in this environment. The test script explicitly
-uses `chromiumSandbox: true`; it does not retry with sandbox disabled.
+All four screen screenshots, the print capture and both rendered PDF pages were
+visually inspected. Text, controls and tables were legible without clipping or
+overlap. The mobile captures and print layout passed horizontal overflow assertions.
 
-## Provenance and interpretation
+## Local review and provenance
 
-The installed native library reports FluidSynth2.4.4 and was successfully called
-through its real player/renderer API. The SoundFont SHA-256 matches the pinned value and bytes extracted read-only from
-the official Ubuntu timgm6mb-soundfont1.3-5 package; see native-consumer notes.
-The local dpkg database contains no package records for these installed resources;
-therefore official-package installation origin is **not established locally**.
-The checked-in CI installs from the runner's official Ubuntu repositories and records
-package metadata. That gate remains unrun in this snapshot.
+Independent local review also passed 85 Node tests, 11 Mido cases, five native
+cases, two additional boundary/metadata probes and direct consumption of the CI
+browser ZIP. It added Windows reserved-device filename rejection and the
+channel-dependent conservative event budget. Local reports remain historical
+snapshots: [check log](evidence/local-check.log), [Mido](evidence/oracle-report.json),
+[native](evidence/native-consumer-report.json).
 
-A pass proves these fixtures on this library/font only. The audio check does not
-establish waveform identity, sound-engine independence or all-DAW interoperability.
-Browser-screen-reader combinations, real phones, MIDI hardware, Logic/Cakewalk import,
-commercial demand and user testing remain unverified. No publication was performed
-as part of this local build handoff.
+Local FluidSynth reports 2.4.4 but its installation origin is not established by
+the local package database. **CI does establish official-package provenance**:
+`libfluidsynth3=2.2.5-1` and `timgm6mb-soundfont=1.3-5`, installed from the runner's
+Ubuntu repositories. The test-only font matches SHA-256
+`c5378b62028c920cb11e4803327983fee2f2cdff5dc89c708e39da417e51c854`.
+No SoundFont or third-party runtime is distributed with the application.
+
+## Remaining limits
+
+A pass proves these fixtures on this consumer/font, not waveform identity,
+sound-engine independence or all-DAW interoperability. Retriggering restarts an
+attack. Browser-screen-reader combinations, real phones, MIDI hardware,
+Logic/Cakewalk import, commercial demand and user testing remain unverified.
+The repository is public; no hosted application deployment is claimed.

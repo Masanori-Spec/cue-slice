@@ -1,0 +1,220 @@
+{
+  "status": "passed",
+  "oracle": "Mido 1.3.3; literal independently authored expectations",
+  "casesPassed": 11,
+  "cases": [
+    {
+      "case": "canonical-smf0/retrigger",
+      "status": "passed",
+      "events": 17,
+      "ticks": 720,
+      "seconds": 0.75,
+      "sha256": "f620bffab1ecbefacad2271773826d7c86ea93776a22c6e0f068a244a04b6099",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/held-onsets.mid",
+          "clips/held-retrigger.mid",
+          "clips/onsets.mid",
+          "clips/retrigger.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 57
+      }
+    },
+    {
+      "case": "canonical-smf0/onsets",
+      "status": "passed",
+      "events": 15,
+      "ticks": 720,
+      "seconds": 0.75,
+      "sha256": "3433055a01568c9f6c58d354904b988feaad6f30fab623e4942710ea20000ef8",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/held-onsets.mid",
+          "clips/held-retrigger.mid",
+          "clips/onsets.mid",
+          "clips/retrigger.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 57
+      }
+    },
+    {
+      "case": "canonical-smf0/held-retrigger",
+      "status": "passed",
+      "events": 12,
+      "ticks": 480,
+      "seconds": 0.5,
+      "sha256": "1108263be1eae82c90226da5df268cc260e18aa48c3e8f4a4c14bb8b64f0c083",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/held-onsets.mid",
+          "clips/held-retrigger.mid",
+          "clips/onsets.mid",
+          "clips/retrigger.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 57
+      }
+    },
+    {
+      "case": "canonical-smf0/held-onsets",
+      "status": "passed",
+      "events": 10,
+      "ticks": 480,
+      "seconds": 0.5,
+      "sha256": "485c99e062812eb11a888015528784f59c64194947ad5d0253383e4cb4e40f94",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/held-onsets.mid",
+          "clips/held-retrigger.mid",
+          "clips/onsets.mid",
+          "clips/retrigger.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 57
+      }
+    },
+    {
+      "case": "canonical-smf1/retrigger",
+      "status": "passed",
+      "events": 17,
+      "ticks": 720,
+      "seconds": 0.75,
+      "sha256": "f620bffab1ecbefacad2271773826d7c86ea93776a22c6e0f068a244a04b6099",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/held-onsets.mid",
+          "clips/held-retrigger.mid",
+          "clips/onsets.mid",
+          "clips/retrigger.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 57
+      }
+    },
+    {
+      "case": "canonical-smf1/onsets",
+      "status": "passed",
+      "events": 15,
+      "ticks": 720,
+      "seconds": 0.75,
+      "sha256": "3433055a01568c9f6c58d354904b988feaad6f30fab623e4942710ea20000ef8",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/held-onsets.mid",
+          "clips/held-retrigger.mid",
+          "clips/onsets.mid",
+          "clips/retrigger.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 57
+      }
+    },
+    {
+      "case": "canonical-smf1/held-retrigger",
+      "status": "passed",
+      "events": 12,
+      "ticks": 480,
+      "seconds": 0.5,
+      "sha256": "1108263be1eae82c90226da5df268cc260e18aa48c3e8f4a4c14bb8b64f0c083",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/held-onsets.mid",
+          "clips/held-retrigger.mid",
+          "clips/onsets.mid",
+          "clips/retrigger.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 57
+      }
+    },
+    {
+      "case": "canonical-smf1/held-onsets",
+      "status": "passed",
+      "events": 10,
+      "ticks": 480,
+      "seconds": 0.5,
+      "sha256": "485c99e062812eb11a888015528784f59c64194947ad5d0253383e4cb4e40f94",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/held-onsets.mid",
+          "clips/held-retrigger.mid",
+          "clips/onsets.mid",
+          "clips/retrigger.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 57
+      }
+    },
+    {
+      "case": "tempo-boundaries/boundary",
+      "status": "passed",
+      "events": 16,
+      "ticks": 480,
+      "seconds": 0.7,
+      "sha256": "72451cc8f979c75517fcc13040da1ee3b0d078ff4fc0320e6b3515d71b87da54",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/boundary.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 16
+      }
+    },
+    {
+      "case": "sparse/padded",
+      "status": "passed",
+      "events": 12,
+      "ticks": 960,
+      "seconds": 1.0,
+      "sha256": "f154501ec255305e75125584ebd95a7e8318b39f714683bfef77463483e98f43",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/padded.mid",
+          "clips/silent.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 22
+      }
+    },
+    {
+      "case": "sparse/silent",
+      "status": "passed",
+      "events": 10,
+      "ticks": 240,
+      "seconds": 0.25,
+      "sha256": "c76413e4a4b7d5eea5abaf9cfaf608e38a8bcc35622e8b7b4b9099375b6ede79",
+      "bundle": {
+        "files": [
+          "boundary-events.csv",
+          "clips/padded.mid",
+          "clips/silent.mid",
+          "excerpt-recipe.json",
+          "recipient-guide.txt"
+        ],
+        "boundaryRows": 22
+      }
+    }
+  ]
+}

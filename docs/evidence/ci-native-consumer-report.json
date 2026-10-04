@@ -1,0 +1,308 @@
+{
+  "status": "passed",
+  "consumer": "native FluidSynth MIDI player + file renderer",
+  "library": "libfluidsynth.so.3",
+  "fluidSynthVersion": "2.2.5",
+  "platform": "Linux-6.8.0-1064-azure-x86_64-with-glibc2.35",
+  "systemPackages": {
+    "returncode": 0,
+    "output": "libfluidsynth3=2.2.5-1\ntimgm6mb-soundfont=1.3-5",
+    "diagnostic": ""
+  },
+  "soundfont": {
+    "filename": "TimGM6mb.sf2",
+    "sha256": "c5378b62028c920cb11e4803327983fee2f2cdff5dc89c708e39da417e51c854",
+    "testOnly": true,
+    "redistributed": false
+  },
+  "sampleRate": 44100,
+  "blockSize": 64,
+  "postPlayerTailSeconds": 3,
+  "casesPassed": 5,
+  "cases": [
+    {
+      "case": "retrigger",
+      "status": "passed",
+      "midiSha256": "f620bffab1ecbefacad2271773826d7c86ea93776a22c6e0f068a244a04b6099",
+      "native": {
+        "notes": [
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 60,
+            "velocity": 80,
+            "renderedSeconds": 0.0,
+            "playerTick": 0
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 60,
+            "velocity": 0,
+            "renderedSeconds": 0.0,
+            "playerTick": 0
+          },
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 64,
+            "velocity": 90,
+            "renderedSeconds": 0.12625850340136055,
+            "playerTick": 121
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 64,
+            "velocity": 30,
+            "renderedSeconds": 0.2510657596371882,
+            "playerTick": 241
+          },
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 67,
+            "velocity": 100,
+            "renderedSeconds": 0.5006802721088436,
+            "playerTick": 480
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 67,
+            "velocity": 0,
+            "renderedSeconds": 0.7502947845804989,
+            "playerTick": 720
+          }
+        ],
+        "totalTicks": 720,
+        "playerStatus": "done",
+        "renderedFrames": 165568,
+        "framesAtPlayerDone": 33216,
+        "postPlayerFrames": 132352
+      },
+      "audio": {
+        "durationSeconds": 3.7543764172335603,
+        "tailRms16bit": 0.0,
+        "entryRms16bit": 312.50168525622684
+      }
+    },
+    {
+      "case": "onsets",
+      "status": "passed",
+      "midiSha256": "3433055a01568c9f6c58d354904b988feaad6f30fab623e4942710ea20000ef8",
+      "native": {
+        "notes": [
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 64,
+            "velocity": 90,
+            "renderedSeconds": 0.12625850340136055,
+            "playerTick": 121
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 64,
+            "velocity": 30,
+            "renderedSeconds": 0.2510657596371882,
+            "playerTick": 241
+          },
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 67,
+            "velocity": 100,
+            "renderedSeconds": 0.5006802721088436,
+            "playerTick": 480
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 67,
+            "velocity": 0,
+            "renderedSeconds": 0.7502947845804989,
+            "playerTick": 720
+          }
+        ],
+        "totalTicks": 720,
+        "playerStatus": "done",
+        "renderedFrames": 165568,
+        "framesAtPlayerDone": 33216,
+        "postPlayerFrames": 132352
+      },
+      "audio": {
+        "durationSeconds": 3.7543764172335603,
+        "tailRms16bit": 0.0,
+        "entryRms16bit": 0.0,
+        "laterRms16bit": 398.20210999963734
+      }
+    },
+    {
+      "case": "tempo-boundary",
+      "status": "passed",
+      "midiSha256": "72451cc8f979c75517fcc13040da1ee3b0d078ff4fc0320e6b3515d71b87da54",
+      "native": {
+        "notes": [
+          {
+            "kind": "note_on",
+            "channel": 2,
+            "note": 50,
+            "velocity": 81,
+            "renderedSeconds": 0.0,
+            "playerTick": 0
+          },
+          {
+            "kind": "note_off",
+            "channel": 2,
+            "note": 50,
+            "velocity": 0,
+            "renderedSeconds": 0.1001360544217687,
+            "playerTick": 120
+          },
+          {
+            "kind": "note_on",
+            "channel": 2,
+            "note": 55,
+            "velocity": 93,
+            "renderedSeconds": 0.44988662131519275,
+            "playerTick": 360
+          },
+          {
+            "kind": "note_off",
+            "channel": 2,
+            "note": 55,
+            "velocity": 0,
+            "renderedSeconds": 0.6995011337868481,
+            "playerTick": 480
+          }
+        ],
+        "totalTicks": 480,
+        "playerStatus": "done",
+        "renderedFrames": 163328,
+        "framesAtPlayerDone": 30976,
+        "postPlayerFrames": 132352
+      },
+      "audio": {
+        "durationSeconds": 3.7035827664399092,
+        "tailRms16bit": 0.7067503765362916
+      }
+    },
+    {
+      "case": "padded",
+      "status": "passed",
+      "midiSha256": "f154501ec255305e75125584ebd95a7e8318b39f714683bfef77463483e98f43",
+      "native": {
+        "notes": [
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 72,
+            "velocity": 65,
+            "renderedSeconds": 0.2510657596371882,
+            "playerTick": 241
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 72,
+            "velocity": 99,
+            "renderedSeconds": 0.37587301587301586,
+            "playerTick": 360
+          }
+        ],
+        "totalTicks": 960,
+        "playerStatus": "done",
+        "renderedFrames": 176640,
+        "framesAtPlayerDone": 44288,
+        "postPlayerFrames": 132352
+      },
+      "audio": {
+        "durationSeconds": 4.005442176870749,
+        "tailRms16bit": 0.0,
+        "entryRms16bit": 0.0,
+        "laterRms16bit": 202.70372207189226
+      }
+    },
+    {
+      "case": "silent",
+      "status": "passed",
+      "midiSha256": "c76413e4a4b7d5eea5abaf9cfaf608e38a8bcc35622e8b7b4b9099375b6ede79",
+      "native": {
+        "notes": [],
+        "totalTicks": 240,
+        "playerStatus": "done",
+        "renderedFrames": 143552,
+        "framesAtPlayerDone": 11200,
+        "postPlayerFrames": 132352
+      },
+      "audio": {
+        "durationSeconds": 3.2551473922902496,
+        "tailRms16bit": 0.0,
+        "peak16bit": 0
+      }
+    }
+  ],
+  "negativeControls": [
+    {
+      "case": "missing-final-note-off",
+      "status": "detected",
+      "criterion": "literal native callback event mismatch, not tail silence",
+      "expectedNoteEvents": 6,
+      "observedNoteEvents": 5,
+      "midiSha256": "c6a8fdbcb4a0a33118d41b0cf2e938fe760a7d85d120b9a3d5678208e666a846",
+      "native": {
+        "notes": [
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 60,
+            "velocity": 80,
+            "renderedSeconds": 0.0,
+            "playerTick": 0
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 60,
+            "velocity": 0,
+            "renderedSeconds": 0.0,
+            "playerTick": 0
+          },
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 64,
+            "velocity": 90,
+            "renderedSeconds": 0.12625850340136055,
+            "playerTick": 121
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 64,
+            "velocity": 30,
+            "renderedSeconds": 0.2510657596371882,
+            "playerTick": 241
+          },
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 67,
+            "velocity": 100,
+            "renderedSeconds": 0.5006802721088436,
+            "playerTick": 480
+          }
+        ],
+        "totalTicks": 720,
+        "playerStatus": "done",
+        "renderedFrames": 165568,
+        "framesAtPlayerDone": 33216,
+        "postPlayerFrames": 132352
+      }
+    }
+  ],
+  "inputMode": "oracle-cli-exports",
+  "sourceZip": null
+}

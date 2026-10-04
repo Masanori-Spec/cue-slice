@@ -1,0 +1,84 @@
+{
+  "status": "passed",
+  "sandbox": true,
+  "testsRun": 17,
+  "results": [
+    {
+      "name": "Japanese initial state; keyboard skip link at deployment subpath",
+      "status": "passed"
+    },
+    {
+      "name": "English example, marker selection and both entry policies",
+      "status": "passed"
+    },
+    {
+      "name": "Editing range invalidates prior results immediately",
+      "status": "passed"
+    },
+    {
+      "name": "Independent MIDI fixture import and batch recipe",
+      "status": "passed"
+    },
+    {
+      "name": "Actual downloaded ZIP passes independent literal Mido oracle",
+      "status": "passed"
+    },
+    {
+      "name": "Repeated exports are byte-identical",
+      "status": "passed"
+    },
+    {
+      "name": "Exported source-bound recipe reimports without changing bytes",
+      "status": "passed"
+    },
+    {
+      "name": "Wrong-source recipe rejects and stale result stays hidden",
+      "status": "passed"
+    },
+    {
+      "name": "Invalid and unsupported MIDI clears the previous source",
+      "status": "passed"
+    },
+    {
+      "name": "Invalid recipe input cannot reuse prior result",
+      "status": "passed"
+    },
+    {
+      "name": "Keyboard-only edit, add and remove; empty batch disables review",
+      "status": "passed"
+    },
+    {
+      "name": "Exactly 64 clips import, 65 rejects",
+      "status": "passed"
+    },
+    {
+      "name": "Reset during delayed import prevents stale completion",
+      "status": "passed"
+    },
+    {
+      "name": "Japanese mobile 390px, reviewed state and no horizontal overflow",
+      "status": "passed"
+    },
+    {
+      "name": "Reviewed print view retains boundaries without overflow and emits A4 PDF",
+      "status": "passed"
+    },
+    {
+      "name": "Reset clears files, recipes, evidence and export state",
+      "status": "passed"
+    },
+    {
+      "name": "No runtime errors or off-origin requests",
+      "status": "passed"
+    }
+  ],
+  "errors": [],
+  "requests": [
+    "http://127.0.0.1:4173/cue-slice/",
+    "http://127.0.0.1:4173/cue-slice/styles.css",
+    "http://127.0.0.1:4173/cue-slice/app.mjs",
+    "http://127.0.0.1:4173/cue-slice/src/midi.mjs",
+    "http://127.0.0.1:4173/cue-slice/src/export.mjs",
+    "http://127.0.0.1:4173/cue-slice/src/example.mjs"
+  ]
+}

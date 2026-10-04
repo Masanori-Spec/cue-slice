@@ -1,0 +1,234 @@
+{
+  "status": "passed",
+  "consumer": "native FluidSynth MIDI player + file renderer",
+  "library": "libfluidsynth.so.3",
+  "fluidSynthVersion": "2.2.5",
+  "platform": "Linux-6.8.0-1064-azure-x86_64-with-glibc2.35",
+  "systemPackages": {
+    "returncode": 0,
+    "output": "libfluidsynth3=2.2.5-1\ntimgm6mb-soundfont=1.3-5",
+    "diagnostic": ""
+  },
+  "soundfont": {
+    "filename": "TimGM6mb.sf2",
+    "sha256": "c5378b62028c920cb11e4803327983fee2f2cdff5dc89c708e39da417e51c854",
+    "testOnly": true,
+    "redistributed": false
+  },
+  "sampleRate": 44100,
+  "blockSize": 64,
+  "postPlayerTailSeconds": 3,
+  "casesPassed": 2,
+  "cases": [
+    {
+      "case": "retrigger",
+      "status": "passed",
+      "midiSha256": "f620bffab1ecbefacad2271773826d7c86ea93776a22c6e0f068a244a04b6099",
+      "native": {
+        "notes": [
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 60,
+            "velocity": 80,
+            "renderedSeconds": 0.0,
+            "playerTick": 0
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 60,
+            "velocity": 0,
+            "renderedSeconds": 0.0,
+            "playerTick": 0
+          },
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 64,
+            "velocity": 90,
+            "renderedSeconds": 0.12625850340136055,
+            "playerTick": 121
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 64,
+            "velocity": 30,
+            "renderedSeconds": 0.2510657596371882,
+            "playerTick": 241
+          },
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 67,
+            "velocity": 100,
+            "renderedSeconds": 0.5006802721088436,
+            "playerTick": 480
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 67,
+            "velocity": 0,
+            "renderedSeconds": 0.7502947845804989,
+            "playerTick": 720
+          }
+        ],
+        "totalTicks": 720,
+        "playerStatus": "done",
+        "renderedFrames": 165568,
+        "framesAtPlayerDone": 33216,
+        "postPlayerFrames": 132352
+      },
+      "audio": {
+        "durationSeconds": 3.7543764172335603,
+        "tailRms16bit": 0.0,
+        "entryRms16bit": 312.50168525622684
+      }
+    },
+    {
+      "case": "onsets",
+      "status": "passed",
+      "midiSha256": "3433055a01568c9f6c58d354904b988feaad6f30fab623e4942710ea20000ef8",
+      "native": {
+        "notes": [
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 64,
+            "velocity": 90,
+            "renderedSeconds": 0.12625850340136055,
+            "playerTick": 121
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 64,
+            "velocity": 30,
+            "renderedSeconds": 0.2510657596371882,
+            "playerTick": 241
+          },
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 67,
+            "velocity": 100,
+            "renderedSeconds": 0.5006802721088436,
+            "playerTick": 480
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 67,
+            "velocity": 0,
+            "renderedSeconds": 0.7502947845804989,
+            "playerTick": 720
+          }
+        ],
+        "totalTicks": 720,
+        "playerStatus": "done",
+        "renderedFrames": 165568,
+        "framesAtPlayerDone": 33216,
+        "postPlayerFrames": 132352
+      },
+      "audio": {
+        "durationSeconds": 3.7543764172335603,
+        "tailRms16bit": 0.0,
+        "entryRms16bit": 0.0,
+        "laterRms16bit": 398.20210999963734
+      }
+    }
+  ],
+  "negativeControls": [
+    {
+      "case": "missing-final-note-off",
+      "status": "detected",
+      "criterion": "literal native callback event mismatch, not tail silence",
+      "expectedNoteEvents": 6,
+      "observedNoteEvents": 5,
+      "midiSha256": "c6a8fdbcb4a0a33118d41b0cf2e938fe760a7d85d120b9a3d5678208e666a846",
+      "native": {
+        "notes": [
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 60,
+            "velocity": 80,
+            "renderedSeconds": 0.0,
+            "playerTick": 0
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 60,
+            "velocity": 0,
+            "renderedSeconds": 0.0,
+            "playerTick": 0
+          },
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 64,
+            "velocity": 90,
+            "renderedSeconds": 0.12625850340136055,
+            "playerTick": 121
+          },
+          {
+            "kind": "note_off",
+            "channel": 0,
+            "note": 64,
+            "velocity": 30,
+            "renderedSeconds": 0.2510657596371882,
+            "playerTick": 241
+          },
+          {
+            "kind": "note_on",
+            "channel": 0,
+            "note": 67,
+            "velocity": 100,
+            "renderedSeconds": 0.5006802721088436,
+            "playerTick": 480
+          }
+        ],
+        "totalTicks": 720,
+        "playerStatus": "done",
+        "renderedFrames": 165568,
+        "framesAtPlayerDone": 33216,
+        "postPlayerFrames": 132352
+      }
+    }
+  ],
+  "inputMode": "provided-zip-artifact",
+  "sourceZip": {
+    "filename": "downloaded.zip",
+    "sha256": "1f48b7b3ade2e4e343693ba6a0fe88adaff73c30640785b360a132f12333ec6c",
+    "inputRoute": "ZIP members copied byte-for-byte into native MIDI-file player",
+    "provenance": "Artifact origin is established by the calling workflow, not by this consumer",
+    "independentMidoPreflight": {
+      "status": "passed",
+      "source": "browser-downloaded ZIP, independently authored SMF0",
+      "bundleSha256": "1f48b7b3ade2e4e343693ba6a0fe88adaff73c30640785b360a132f12333ec6c",
+      "sourceSha256": "278783ebcfaeaf707041b977563c383788d2c6a059d76e82812bce854a656015",
+      "casesPassed": 2,
+      "cases": [
+        {
+          "case": "retrigger",
+          "status": "passed",
+          "events": 17,
+          "ticks": 720,
+          "seconds": 0.75,
+          "sha256": "f620bffab1ecbefacad2271773826d7c86ea93776a22c6e0f068a244a04b6099"
+        },
+        {
+          "case": "onsets",
+          "status": "passed",
+          "events": 15,
+          "ticks": 720,
+          "seconds": 0.75,
+          "sha256": "3433055a01568c9f6c58d354904b988feaad6f30fab623e4942710ea20000ef8"
+        }
+      ]
+    }
+  }
+}

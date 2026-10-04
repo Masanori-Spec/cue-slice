@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-04",
+  "sourceCommit": "86017ea8b9f5bd22b5df23bbe17221aa88f5edc4",
+  "workflowRunId": 37199838010,
+  "workflowUrl": "https://github.com/Masanori-Spec/cue-slice/actions/runs/37199838010",
+  "conclusion": "success",
+  "jobs": [
+    "engine (22)",
+    "engine (24)",
+    "native-consumer",
+    "browser"
+  ],
+  "nodeTestsPerMatrix": 85,
+  "midoCasesPerMatrix": 11,
+  "nativeCases": 5,
+  "browserScenarios": 17,
+  "nativeBrowserArtifactClips": 2,
+  "browserSandbox": true,
+  "visualReview": [
+    "JA desktop initial",
+    "EN desktop reviewed",
+    "JA mobile reviewed 390px",
+    "EN mobile reviewed 390px",
+    "print emulation",
+    "A4 PDF both pages"
+  ],
+  "nativeNegativeControl": "missing-final-note-off detected by literal callback mismatch",
+  "downloadZipSha256": "1f48b7b3ade2e4e343693ba6a0fe88adaff73c30640785b360a132f12333ec6c",
+  "artifactDigests": {
+    "browser": "dbbf58f1c6e9c6b8c4d2c6919c55c348399976ef2dfaf99e336f503cab69e1a6",
+    "native": "75997d5f2a5f469d6cfe3cb30a500dca4356d5c28eb15a093fe95d5d39300ad0"
+  }
+}

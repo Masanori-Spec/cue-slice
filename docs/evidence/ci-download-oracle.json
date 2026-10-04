@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "source": "browser-downloaded ZIP, independently authored SMF0",
+  "bundleSha256": "1f48b7b3ade2e4e343693ba6a0fe88adaff73c30640785b360a132f12333ec6c",
+  "sourceSha256": "278783ebcfaeaf707041b977563c383788d2c6a059d76e82812bce854a656015",
+  "casesPassed": 2,
+  "cases": [
+    {
+      "case": "retrigger",
+      "status": "passed",
+      "events": 17,
+      "ticks": 720,
+      "seconds": 0.75,
+      "sha256": "f620bffab1ecbefacad2271773826d7c86ea93776a22c6e0f068a244a04b6099"
+    },
+    {
+      "case": "onsets",
+      "status": "passed",
+      "events": 15,
+      "ticks": 720,
+      "seconds": 0.75,
+      "sha256": "3433055a01568c9f6c58d354904b988feaad6f30fab623e4942710ea20000ef8"
+    }
+  ]
+}

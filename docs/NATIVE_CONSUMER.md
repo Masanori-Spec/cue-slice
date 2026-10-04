@@ -205,9 +205,10 @@ that a file came from a browser merely from its path: the calling CI workflow
 provides download provenance. An equivalent CLI-generated ZIP is only a control
 for this test route and is not evidence of browser execution.
 
-At authoring time, the new route passed a local equivalent canonical CLI ZIP
-control. Actual browser-ZIP → native execution and its official-package CI run
-remain pending; the local control must not be presented as that completed gate.
+The equivalent CLI-ZIP control passed locally. The actual browser ZIP then passed
+the official Ubuntu FluidSynth 2.2.5 route in [run 37199838010](https://github.com/Masanori-Spec/cue-slice/actions/runs/37199838010).
+See [the native artifact report](evidence/ci-browser-native-report.json) for the
+source ZIP and per-MIDI hashes, package versions, callback events and audio metrics.
 
 ## Player completion and release-envelope completion
 
@@ -228,7 +229,8 @@ This follows the separate player/synth and renderer lifecycles documented by the
 [official renderer API](https://www.fluidsynth.org/api/group__file__renderer.html)
 and [player reset setting](https://www.fluidsynth.org/api/settings_player.html).
 The actual first-run browser ZIP passes this revised consumer locally on2.4.4;
-confirmation on the official Ubuntu2.2.5 CI runtime remains pending the rerun.
+the official Ubuntu 2.2.5 CI rerun also passed all five regular cases and both
+actual downloaded clips. See [verification status](VERIFICATION.md).
 
 
 Some FluidSynth versions also release pending voices automatically at EOF.

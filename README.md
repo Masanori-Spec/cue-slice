@@ -4,6 +4,10 @@
 
 JA / EN · local-first browser app · native `.mid` downloads · source-bound JSON recipe
 
+[Verified CI run](https://github.com/Masanori-Spec/cue-slice/actions/runs/37199838010) · [Evidence and limits](docs/VERIFICATION.md)
+
+![CueSlice reviewed MIDI excerpt batch](docs/evidence/desktop-en-reviewed.png)
+
 One MIDI performance often needs several rehearsal passages. CueSlice creates up
 to 64 standalone SMF0 clips, restores supported entry state, and gives the recipient
 a boundary-event ledger. It is a deliberate handoff workflow, not a DAW, waveform
@@ -137,8 +141,10 @@ See [verification status](docs/VERIFICATION.md), [native consumer notes](docs/NA
 The source includes sandbox-on Chromium CI for ubuntu-22.04, desktop/mobile JA/EN, reviewed print screenshot/A4 PDF,
 keyboard use, real downloads, independent Mido consumption, direct downloaded-ZIP
 consumption by native FluidSynth, repeated exports,
-source mismatches, failed imports and interrupted imports. Authored tests are not
-proof that browser/CI execution has passed: current evidence is recorded separately.
+source mismatches, failed imports and interrupted imports. The published application
+revision passed all four CI jobs, including 17 browser scenarios and native
+consumption of actual downloaded MIDI; exact evidence and remaining limits are
+recorded in the verification status.
 
 No project license has been selected. Third-party testing dependencies are listed
 in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md); they are not bundled into the app.
